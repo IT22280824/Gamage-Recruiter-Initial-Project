@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+.env
+.env.local
+
+# Logs
+logs
+*.log
+
+# Build
+dist/
+build/
+
+# OS files
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# ZIPs or env exports
+env_files.zip
