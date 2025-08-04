@@ -22,3 +22,19 @@ app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 // OTP
 const otpRoutes = require('./routes/otpRoutes');
 app.use('/api/otp', otpRoutes);
+
+
+// Auth 
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+const session = require('express-session');
+const passport = require('passport');
+
+app.use(session({
+  secret: 'random_secret',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
