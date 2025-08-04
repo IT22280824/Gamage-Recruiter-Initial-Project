@@ -38,3 +38,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+// User
+
+const userRoutes = require('./routes/userRoutes');
+app.use('/api/users', userRoutes);
