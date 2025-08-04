@@ -17,3 +17,8 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+
+// OTP
+const otpRoutes = require('./routes/otpRoutes');
+app.use('/api/otp', otpRoutes);
