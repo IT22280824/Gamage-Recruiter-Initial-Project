@@ -18,7 +18,7 @@ This Media Gallery Web App allows users (admin & normal) to:
 
 ## 🌐 Live Demo
 
-- **Frontend (Vercel)**: [https://gamage-recruiter-initial-project.vercel.app/]
+- **Frontend (Vercel)**: [https://gamage-recruiter-initial-project-pp.vercel.app/register]
 - **Backend (Render)**: [https://gamage-recruiter-initial-project.onrender.com/]
 
 ---
