@@ -104,6 +104,10 @@ export default function Login() {
               <div className="mt-3 text-center">
                 <a href="/register">Don't have an account? Register here</a>
               </div>
+              <div className="text-end">
+                <a href="/forgot-password" className="small text-decoration-none">Forgot Password?</a>
+              </div>
+
             </Card.Body>
           </Card>
         </Col>

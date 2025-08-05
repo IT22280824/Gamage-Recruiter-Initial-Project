@@ -7,7 +7,7 @@ import OAuthSuccessPage from './pages/OAuthSuccess.js';
 import ProtectedRoute from './components/ProtectedRoute.js';
 import Dashboard from './pages/Dashboard.js'
 import Admindashboard from './pages/AdminUserManagement.js'
-
+import ForgotPassword from './pages/ForgotPassword.js'
 
 function App() {
   return (
@@ -17,6 +17,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/oauth-success" element={<OAuthSuccessPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
 
           <Route path="/admin/dashboard" element={
             <ProtectedRoute>
