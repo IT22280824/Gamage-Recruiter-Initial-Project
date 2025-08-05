@@ -66,7 +66,7 @@ This Media Gallery Web App allows users (admin & normal) to:
 |-----------------------------|---------|
 | ChatGPT (OpenAI)            | Architecture decisions, deployment guidance, CORS issues, OTP flow |
 | Stack Overflow              | Debugging JWT, Multer, Archiver issues |
-| Vercel Docs                 | Frontend deployment (Vite/CRA) |
+| Vercel Docs                 | Frontend deployment (CRA) |
 | Render Docs                 | Backend deployment with Node.js |
 | Cloudinary Docs             | Image hosting |
 | Archiver (npm)              | ZIP generation |
