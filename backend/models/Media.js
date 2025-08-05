@@ -1,23 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const mediaSchema = new mongoose.Schema({
-  fileUrl: { 
-    type: String, 
-    required: true },
-  publicId: { 
-    type: String }, // for Cloudinary
-  title: { 
-    type: String },
-  description: { 
-    type: String },
+  title: { type: String, required: true },
+  description: String,
   tags: [String],
-  userId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: "User", 
-    required: true },
-  createdAt: { 
-    type: Date, 
-    default: Date.now }
+  url: String,
+  public_id: String,
+  createdAt: { type: Date, default: Date.now },
+  uploader: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  status: { type: String, enum: ['private', 'shared', 'public'], default: 'private' }
 });
 
-module.exports = mongoose.model("Media", mediaSchema);
+module.exports = mongoose.model('Media', mediaSchema);

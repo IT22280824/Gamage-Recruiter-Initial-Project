@@ -54,3 +54,10 @@ app.use('/api/users', userRoutes);
 
 require('./middlewares/passport');
 app.use(passport.initialize());
+
+
+
+
+// Media
+const mediaRoutes = require('./routes/mediaRoutes');
+app.use('/api/media', mediaRoutes);
