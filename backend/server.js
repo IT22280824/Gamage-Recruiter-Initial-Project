@@ -61,3 +61,9 @@ app.use(passport.initialize());
 // Media
 const mediaRoutes = require('./routes/mediaRoutes');
 app.use('/api/media', mediaRoutes);
+
+
+
+// Admin
+const adminRoutes = require('./routes/adminRoutes');
+app.use('/api/admin', adminRoutes);

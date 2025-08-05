@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Container, Row, Col, Card, Alert, Spinner } from 'react-bootstrap';
 import { Envelope, Lock } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
+import AdminDashBoard from './AdminUserManagement.js'
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -9,9 +11,9 @@ export default function Login() {
   const [variant, setVariant] = useState('info');
   const [loading, setLoading] = useState(false);
 
-  // Make sure to define REACT_APP_BACKEND_URL in your .env file as:
-  // REACT_APP_BACKEND_URL=http://localhost:8080
-  const backendURL = process.env.REACT_APP_BACKEND_URL;
+  const navigate = useNavigate();
+
+  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,12 +23,20 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await axios.post(`${backendURL}/api/auth/login`, form);
-      setMsg(res.data.message || 'Login successful!');
+      
+      setMsg('Login successful!');
       setVariant('success');
-      // Save token, redirect, etc.
+
+      // Save token and user info to localStorage
       localStorage.setItem('token', res.data.token);
-      // Redirect to dashboard or wherever
-      window.location.href = '/dashboard';
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+
+      // Redirect based on role
+      if (res.data.user.role === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       setMsg(err.response?.data?.message || 'Login failed');
       setVariant('danger');

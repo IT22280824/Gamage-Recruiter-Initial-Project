@@ -6,6 +6,7 @@ import Login from './pages/Login.js'
 import OAuthSuccessPage from './pages/OAuthSuccess.js';
 import ProtectedRoute from './components/ProtectedRoute.js';
 import Dashboard from './pages/Dashboard.js'
+import Admindashboard from './pages/AdminUserManagement.js'
 
 
 function App() {
@@ -16,6 +17,13 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/oauth-success" element={<OAuthSuccessPage />} />
+
+          <Route path="/admin/dashboard" element={
+            <ProtectedRoute>
+              <Admindashboard />
+            </ProtectedRoute>
+            } />
+
 
           <Route path="/dashboard" element={
             <ProtectedRoute>

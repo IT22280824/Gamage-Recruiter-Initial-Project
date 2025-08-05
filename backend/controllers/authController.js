@@ -85,3 +85,30 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+exports.registerUser = async (req, res) => {
+  const { name, email, password, adminCode } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ message: 'User already exists' });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // Check admin code from env variable
+    const role = adminCode === process.env.ADMIN_SECRET ? 'admin' : 'user';
+
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+      isVerified: true,
+      isActive: true,
+    });
+
+    res.status(201).json({ message: 'User registered successfully', user });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
