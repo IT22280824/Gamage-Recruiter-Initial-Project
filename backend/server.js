@@ -19,6 +19,12 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
+
+
 // OTP
 const otpRoutes = require('./routes/otpRoutes');
 app.use('/api/otp', otpRoutes);
@@ -44,3 +50,7 @@ app.use(passport.session());
 
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
+
+
+require('./middlewares/passport');
+app.use(passport.initialize());

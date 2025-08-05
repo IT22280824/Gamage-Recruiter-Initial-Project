@@ -1,33 +1,50 @@
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-exports.protect = (req, res, next) => {
-  // Extract token from Authorization header (format: "Bearer TOKEN")
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Unauthorized. No token provided.' });
-  }
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: `${process.env.BACKEND_URL}/api/auth/google/callback`,
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const email = profile.emails[0].value;
+        const name = profile.displayName;
 
-  const token = authHeader.split(' ')[1];
+        let user = await User.findOne({ email });
+
+        if (!user) {
+          user = await User.create({
+            name,
+            email,
+            password: null,
+            isVerified: true,
+            role: 'user',
+          });
+        }
+
+        return done(null, user);
+      } catch (error) {
+        return done(error, null);
+      }
+    }
+  )
+);
+
+// Required for sessions (not used for JWT but required for Google auth flow)
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
   try {
-    // Verify JWT token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // Map userId in token payload to req.user.id for consistency in controllers
-    req.user = {
-      id: decoded.userId,  // your payload uses userId, so map to id
-      role: decoded.role,
-    };
-
-    next();
+    const user = await User.findById(id);
+    done(null, user);
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid or expired token.' });
+    done(err, null);
   }
-};
-
-exports.adminOnly = (req, res, next) => {
-  // Check if user role is admin
-  if (!req.user || req.user.role !== 'admin') {
-    return res.status(403).json({ message: 'Access denied. Admins only.' });
-  }
-  next();
-};
+});

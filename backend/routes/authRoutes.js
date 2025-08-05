@@ -13,16 +13,33 @@ router.post('/reset-password', authController.resetPassword);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+// router.get(
+//   '/google/callback',
+//   passport.authenticate('google', {
+//     failureRedirect: '/login',
+//     session: false,
+//   }),
+//   (req, res) => {
+//     // Send JWT after successful login
+//     const token = jwt.sign({ userId: req.user._id, role: req.user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+//     res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`);
+//   }
+// );
+
+const CLIENT_URL = process.env.CLIENT_URL;
+
 router.get(
   '/google/callback',
-  passport.authenticate('google', {
-    failureRedirect: '/login',
-    session: false,
-  }),
+  passport.authenticate('google', { session: false, failureRedirect: `${CLIENT_URL}/login` }),
   (req, res) => {
-    // Send JWT after successful login
-    const token = jwt.sign({ userId: req.user._id, role: req.user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`);
+    const token = jwt.sign(
+      { userId: req.user._id, role: req.user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    // Redirect to frontend with token in URL
+    res.redirect(`${CLIENT_URL}/oauth-success?token=${token}`);
   }
 );
 
