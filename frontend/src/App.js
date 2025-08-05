@@ -4,6 +4,8 @@ import './App.css';
 import Register from './pages/Register.js'
 import Login from './pages/Login.js'
 import OAuthSuccessPage from './pages/OAuthSuccess.js';
+import ProtectedRoute from './components/ProtectedRoute.js';
+import Dashboard from './pages/Dashboard.js'
 
 
 function App() {
@@ -14,6 +16,14 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/oauth-success" element={<OAuthSuccessPage />} />
+
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
         </Routes>
       </Router>
       
