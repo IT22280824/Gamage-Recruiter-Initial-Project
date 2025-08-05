@@ -8,6 +8,7 @@ const {
   updateMedia,
   deleteMedia,
   downloadZip,
+  getRecentMedia
 } = require('../controllers/mediaController');
 const { upload } = require('../utils/multerCloudinary.js');
 const { protect } = require('../middlewares/auth.js');
@@ -21,5 +22,6 @@ router.get('/user-media', getUserMedia);
 router.put('/:id', updateMedia);
 router.delete('/:id', deleteMedia);
 router.post('/download-zip', downloadZip);
+router.get('/recent', getRecentMedia);
 
 module.exports = router;

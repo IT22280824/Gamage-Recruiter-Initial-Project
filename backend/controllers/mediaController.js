@@ -83,11 +83,25 @@ const downloadZip = async (req, res) => {
   archive.finalize();
 };
 
+// Get recent media uploads from all users
+const getRecentMedia = async (req, res) => {
+  try {
+    const recentMedia = await Media.find()
+      .sort({ createdAt: -1 })
+      .limit(10) 
+      .populate('uploader', 'name email');
+    res.json({ media: recentMedia });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching recent media uploads' });
+  }
+};
+
 module.exports = {
   uploadMedia,
   listMedia,
-  getUserMedia,    // <-- export the new function
+  getUserMedia,    
   updateMedia,
   deleteMedia,
-  downloadZip
+  downloadZip,
+  getRecentMedia
 };

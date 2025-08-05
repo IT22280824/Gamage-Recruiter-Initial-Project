@@ -16,6 +16,7 @@ import {
 import Sidebar from '../components/Navbar.js';
 import { useDropzone } from 'react-dropzone';
 import Profile from '../components/Profile.js'
+import RecentMedia  from '../components/RecentMedia.js'
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -230,7 +231,7 @@ const Dashboard = () => {
               <p>
                 Welcome back, <b>{user.name}</b>! You have {mediaList.length} media files uploaded.
               </p>
-              {/* Could add stats cards here */}
+              <RecentMedia />
             </>
           )}
 
