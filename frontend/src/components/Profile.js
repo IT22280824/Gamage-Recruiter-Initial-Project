@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { 
   Row, 
@@ -22,7 +23,8 @@ import {
   PencilSquare,
   Trash,
   Person,
-  Gear
+  Gear,
+  ChatHeart
 } from 'react-bootstrap-icons';
 import { useDropzone } from 'react-dropzone';
 
@@ -30,6 +32,7 @@ const Profile = ({ user, token }) => {
   const [mediaList, setMediaList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('posts');
+  const navigate = useNavigate();
 
   // Upload states
   const [file, setFile] = useState(null);
@@ -179,8 +182,8 @@ const Profile = ({ user, token }) => {
             <Button variant="outline-secondary" size="sm" className="me-2">
               Edit Profile
             </Button>
-            <Button variant="outline-secondary" size="sm">
-              <Gear size={18} />
+            <Button variant="outline-secondary" size="sm" onClick={() => navigate('/messages')}>
+              <ChatHeart size={18} />
             </Button>
           </div>
           

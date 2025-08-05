@@ -67,3 +67,11 @@ app.use('/api/media', mediaRoutes);
 // Admin
 const adminRoutes = require('./routes/adminRoutes');
 app.use('/api/admin', adminRoutes);
+
+
+
+// Contact user and admin
+const contactRoutes = require('./routes/contactRoutes');
+const adminContactRoutes = require('./routes/adminContactRoutes');
+app.use('/api/contact', contactRoutes);
+app.use('/api/admin/contact', adminContactRoutes);

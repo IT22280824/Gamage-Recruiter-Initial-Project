@@ -15,8 +15,9 @@ import {
 } from 'react-bootstrap';
 import Sidebar from '../components/Navbar.js';
 import { useDropzone } from 'react-dropzone';
-import Profile from '../components/Profile.js'
-import RecentMedia  from '../components/RecentMedia.js'
+import Profile from '../components/Profile.js';
+import Contact from '../components/Contacts.js';
+import RecentMedia  from '../components/RecentMedia.js';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -227,10 +228,50 @@ const Dashboard = () => {
         <Container fluid>
           {activeTab === 'dashboard' && (
             <>
-              <h2>Dashboard Overview</h2>
-              <p>
-                Welcome back, <b>{user.name}</b>! You have {mediaList.length} media files uploaded.
-              </p>
+              <Card className="border-0 shadow-sm mb-4">
+  <Card.Body className="p-4">
+    <div className="d-flex align-items-center mb-3">
+      <div className="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+        <svg 
+          width="32" 
+          height="32" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          className="text-primary"
+        >
+          <path d="M3 9C3 6.17157 3 4.75736 3.87868 3.87868C4.75736 3 6.17157 3 9 3H15C17.8284 3 19.2426 3 20.1213 3.87868C21 4.75736 21 6.17157 21 9V15C21 17.8284 21 19.2426 20.1213 20.1213C19.2426 21 17.8284 21 15 21H9C6.17157 21 4.75736 21 3.87868 20.1213C3 19.2426 3 17.8284 3 15V9Z" stroke="currentColor" strokeWidth="2"/>
+          <path d="M7 15C7 13.1144 7 12.1716 7.58579 11.5858C8.17157 11 9.11438 11 11 11H13C14.8856 11 15.8284 11 16.4142 11.5858C17 12.1716 17 13.1144 17 15V17C17 18.8856 17 19.8284 16.4142 20.4142C15.8284 21 14.8856 21 13 21H11C9.11438 21 8.17157 21 7.58579 20.4142C7 19.8284 7 18.8856 7 17V15Z" stroke="currentColor" strokeWidth="2"/>
+          <path d="M7 3V7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M17 3V7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <circle cx="12" cy="15" r="2" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h2 className="mb-0" style={{ 
+          fontWeight: '600',
+          background: 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent'
+        }}>
+          MediaNest
+        </h2>
+      </div>
+    </div>
+    
+    <div className="border-top pt-3">
+      <p className="mb-0 fs-5">
+        Welcome back, <span className="fw-semibold text-primary">{user.name}</span>! 
+        You have <Badge bg="primary" pill>{mediaList.length}</Badge> media files uploaded.
+      </p>
+      {mediaList.length > 0 && (
+        <small className="text-muted">
+          Last uploaded: {new Date(mediaList[0]?.createdAt).toLocaleDateString()}
+        </small>
+      )}
+    </div>
+  </Card.Body>
+</Card>
               <RecentMedia />
             </>
           )}
@@ -351,11 +392,9 @@ const Dashboard = () => {
             </>
           )}
 
-          {activeTab === 'analytics' && (
+          {activeTab === 'contacts' && (
             <div>
-              <h2>Analytics</h2>
-              {/* Add your analytics content */}
-              <p>Coming soon...</p>
+              {activeTab === 'contacts' && <Contact user={user} token={token} />}
             </div>
           )}
 

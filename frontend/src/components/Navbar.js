@@ -43,12 +43,12 @@ const Sidebar = ({ activeTab, setActiveTab, user }) => {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link 
-            active={activeTab === 'analytics'} 
-            onClick={() => setActiveTab('analytics')}
+            active={activeTab === 'contacts'} 
+            onClick={() => setActiveTab('contacts')}
             className="d-flex align-items-center"
           >
             <BarChart className="me-2" size={18} />
-            Analytics
+            Contacts
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
